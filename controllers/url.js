@@ -1,6 +1,7 @@
 const URL = require('../models/url')
 const ShortUniqueId = require('short-unique-id')
 async function handleURLgenerate(req, res) {
+    const urls=await URL.find({});
     if (!req.body.url) {
         return res.status(400).send({
             error: 'URL not Found !'
@@ -14,11 +15,12 @@ async function handleURLgenerate(req, res) {
         visitHistory: []
     })
 
-    return res.status(200).send({
-        id: shortURL
+    return res.status(200).render('Home',{
+        id: shortURL,
+        urls:urls
     })
 }
-async function handleshortURL(req, res) {
+async function handleshortURL(req, res) {  
     // console.log(req.params.shortId);
     const urlId = req.params.shortId;
     const result = await URL.findOneAndUpdate({shortId:urlId}, {

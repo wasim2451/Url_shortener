@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Page</title>
+<style>
+body {
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+</style>
+</head>
+
+<body>
+<h2>URL Shortener</h2>
+<p>Enter your URL</p>
+<form action="/url" method="post">
+<input type="text" name="url" placeholder="https://www.example.com">
+<button type="submit">Generate</button>
+</form>
+<!-- Backend data comes into locals  -->
+<% if(locals.id){ %>
+<p>Generated SHORT URL is : <a href=" https://localhost:3000/url/<%=id%>"> http://localhost:3000/url/<%=id%>
+    </a>
+</p>
+<%}%>
+
+    <table style="text-align: center;">
+        <tr>
+            <th>Sl no.</th>
+            <th>Website Name </th>
+            <th>ShortId </th>
+            <th>Clicks </th>
+        </tr>
+
+        <% urls.forEach((url,index)=> { %>
+            <tr>
+                <td>
+                    <%=index+1%>
+                </td>
+                <td>
+                    <%= url.originalUrl %>
+                </td>
+                <td>
+                    <%=url.shortId %>
+                </td>
+                <td>
+                    <%=url.visitHistory.length %>
+                </td>
+            </tr>
+            <% }) %>
+    </table>
+
+</body>
+
+</html>
